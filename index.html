@@ -1,273 +1,689 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="IT World Jersey - Connect, Share, and Communicate Seamlessly">
-    <meta name="keywords" content="messaging, communication, social, app, mobile">
-    <title>IT World Jersey - Modern Communication Platform</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#05060c">
+<title>Coming Soon | IT World Jersey</title>
+<meta name="description" content="IT World Jersey — 2026 ခုနှစ် အောက်တိုဘာလ 15 ရက်နေ့တွင် ပြန်လည်ဖွင့်လှစ်ပါမည်။">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=Noto+Sans+Myanmar:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ============ RESET & VARS ============ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#05060c;
+  --cyan:#22d3ee;
+  --violet:#8b5cf6;
+  --pink:#f472b6;
+  --text:#e8ecf8;
+  --muted:#8590b3;
+  --line:rgba(255,255,255,.10);
+}
+html,body{height:100%}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter','Noto Sans Myanmar',system-ui,-apple-system,'Padauk','Myanmar Text','Segoe UI',sans-serif;
+  min-height:100vh;
+  min-height:100dvh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px 14px;
+  overflow-x:hidden;
+  position:relative;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ============ BACKGROUND LAYERS ============ */
+#bg{position:fixed;inset:0;z-index:0;display:block;pointer-events:none}
+
+.aurora{position:fixed;inset:-25%;z-index:1;pointer-events:none;opacity:.55;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);mix-blend-mode:screen;will-change:transform}
+.b1{width:48vw;height:48vw;min-width:280px;min-height:280px;left:-8vw;top:-12vw;
+    background:radial-gradient(circle,#0ea5e9 0%,transparent 68%);animation:float 20s ease-in-out infinite}
+.b2{width:54vw;height:54vw;min-width:320px;min-height:320px;right:-14vw;top:4vh;
+    background:radial-gradient(circle,#7c3aed 0%,transparent 68%);animation:float 26s ease-in-out infinite reverse}
+.b3{width:46vw;height:46vw;min-width:260px;min-height:260px;left:20vw;bottom:-20vw;
+    background:radial-gradient(circle,#db2777 0%,transparent 68%);animation:float 23s ease-in-out 2s infinite}
+
+.grid{
+  position:fixed;inset:0;z-index:2;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.038) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.038) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 45%,#000 10%,transparent 78%);
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 45%,#000 10%,transparent 78%);
+}
+.vignette{
+  position:fixed;inset:0;z-index:3;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 50%,transparent 35%,rgba(0,0,0,.55) 100%);
+}
+
+/* cursor glow */
+.cursor-glow{
+  position:fixed;left:0;top:0;width:560px;height:560px;border-radius:50%;
+  z-index:4;pointer-events:none;opacity:0;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(34,211,238,.16) 0%,rgba(139,92,246,.10) 38%,transparent 70%);
+  transition:opacity .45s ease;
+  will-change:transform;
+}
+
+/* ============ CARD ============ */
+.card{
+  position:relative;
+  z-index:5;
+  width:min(940px,100%);
+  padding:clamp(24px, 4.5vw, 50px) clamp(16px, 3.5vw, 40px);
+  border-radius:26px;
+  background:linear-gradient(160deg,rgba(255,255,255,.075) 0%,rgba(255,255,255,.018) 55%,rgba(255,255,255,.05) 100%);
+  border:1px solid var(--line);
+  backdrop-filter:blur(24px) saturate(150%);
+  -webkit-backdrop-filter:blur(24px) saturate(150%);
+  box-shadow:
+    0 40px 90px -20px rgba(0,0,0,.85),
+    0 0 0 1px rgba(255,255,255,.03),
+    inset 0 1px 0 rgba(255,255,255,.14);
+  text-align:center;
+  overflow:hidden;
+  transform-style:preserve-3d;
+  will-change:transform;
+  animation:cardIn 1.1s cubic-bezier(.16,.84,.24,1) both;
+}
+/* shimmer sweep */
+.card::after{
+  content:'';position:absolute;top:-10%;left:-70%;width:42%;height:120%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.09),transparent);
+  transform:skewX(-18deg);pointer-events:none;
+  animation:sweep 8s ease-in-out infinite;
+}
+/* top light line */
+.card::before{
+  content:'';position:absolute;top:0;left:12%;right:12%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(34,211,238,.9),rgba(139,92,246,.9),transparent);
+  opacity:.85;
+}
+
+/* ============ BADGE ============ */
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 14px;border-radius:999px;
+  background:rgba(34,211,238,.09);
+  border:1px solid rgba(34,211,238,.28);
+  color:#a5f3fc;font-size:10px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;
+  box-shadow:0 0 26px rgba(34,211,238,.18);
+}
+.badge .dot{
+  width:6px;height:6px;border-radius:50%;background:var(--cyan);
+  box-shadow:0 0 12px var(--cyan);
+  animation:pulse 1.8s ease-in-out infinite;
+}
+
+/* ============ TITLE ============ */
+.title{
+  margin:18px 0 12px;
+  font-size:clamp(26px, 7.5vw, 58px);
+  font-weight:900;
+  line-height:1.05;
+  letter-spacing:-.02em;
+  word-break:keep-all;
+  background:linear-gradient(100deg,#ffffff 0%,#a5f3fc 24%,#c4b5fd 48%,#f9a8d4 72%,#ffffff 100%);
+  background-size:260% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;
+  filter:drop-shadow(0 0 30px rgba(34,211,238,.28));
+  animation:shine 7s linear infinite;
+}
+
+.lead{
+  max-width:640px;margin:0 auto;
+  font-size:clamp(11px, 2.8vw, 13.5px);
+  line-height:1.75;
+  color:var(--muted);
+  font-weight:400;
+}
+.lead strong{color:#cbd5f5;font-weight:600}
+
+/* ============ COUNTDOWN ============ */
+.countdown{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:clamp(6px, 1.5vw, 14px);
+  margin:28px 0 26px;
+}
+.unit{
+  position:relative;
+  padding:clamp(12px, 2.5vw, 22px) 4px clamp(10px, 2vw, 16px);
+  border-radius:16px;
+  background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.018));
+  border:1px solid rgba(255,255,255,.09);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    0 14px 34px -10px rgba(0,0,0,.7);
+  overflow:hidden;
+  transition:border-color .4s ease, box-shadow .4s ease, transform .4s ease;
+}
+.unit::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% -20%,rgba(34,211,238,.20),transparent 68%);
+  pointer-events:none;
+}
+.unit::after{
+  content:'';position:absolute;left:14%;right:14%;bottom:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(139,92,246,.55),transparent);
+}
+.unit:hover{
+  transform:translateY(-3px);
+  border-color:rgba(34,211,238,.35);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 20px 44px -12px rgba(34,211,238,.32);
+}
+.num{
+  position:relative;
+  font-size:clamp(20px, 5.5vw, 42px);
+  font-weight:800;
+  line-height:1;
+  letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;
+  background:linear-gradient(180deg,#ffffff 0%,#9fb4d8 130%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  display:block;
+}
+.num.tick{animation:tick .55s cubic-bezier(.2,.9,.3,1)}
+.lbl{
+  position:relative;
+  display:block;margin-top:8px;
+  font-size:clamp(7.5px, 1.8vw, 9.5px);
+  font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:#7885a8;
+}
+
+/* ============ LINKS ============ */
+.links{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:26px;
+}
+.link{
+  position:relative;
+  display:flex;flex-direction:column;gap:6px;
+  padding:14px 16px;
+  border-radius:15px;
+  text-decoration:none;
+  text-align:left;
+  color:var(--text);
+  background:rgba(255,255,255,.028);
+  border:1px solid rgba(255,255,255,.085);
+  transition:transform .35s cubic-bezier(.2,.85,.3,1),border-color .35s,background .35s,box-shadow .35s;
+  overflow:hidden;
+}
+.link::before{
+  content:'';position:absolute;inset:0;opacity:0;
+  background:radial-gradient(ellipse at 50% 120%,rgba(34,211,238,.22),transparent 70%);
+  transition:opacity .35s;
+  pointer-events:none;
+}
+.link .host{
+  font-size:clamp(10px, 2.6vw, 12.5px);
+  font-weight:600;
+  letter-spacing:-.01em;
+  overflow-wrap:anywhere;
+  position:relative;
+}
+.link .status{
+  font-size:9px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:#7c88ac;position:relative;
+  display:flex;align-items:center;gap:5px;
+}
+.link .status i{
+  width:5px;height:5px;border-radius:50%;
+  background:currentColor;font-style:normal;
+  box-shadow:0 0 10px currentColor;
+}
+.link .status.demo{color:var(--cyan)}
+.link .status.soon{color:#f0b429}
+
+.link:hover:not(.soon){
+  transform:translateY(-4px);
+  border-color:rgba(34,211,238,.45);
+  background:rgba(34,211,238,.055);
+  box-shadow:0 18px 44px -14px rgba(34,211,238,.45);
+}
+.link:hover:not(.soon)::before{opacity:1}
+
+.link.soon{opacity:.5;cursor:not-allowed;pointer-events:none}
+
+/* ============ MAIL CTA ============ */
+.cta-row{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+  gap:12px;
+}
+.mail{
+  position:relative;
+  display:inline-flex;align-items:center;gap:9px;
+  padding:12px 22px;
+  border-radius:999px;
+  text-decoration:none;
+  font-size:clamp(11px, 2.8vw, 13px);
+  font-weight:700;
+  color:#04060d;
+  background:linear-gradient(100deg,#22d3ee 0%,#818cf8 50%,#a78bfa 100%);
+  background-size:200% 100%;
+  box-shadow:0 14px 44px -12px rgba(34,211,238,.65);
+  transition:transform .3s cubic-bezier(.2,.85,.3,1),box-shadow .3s,background-position .5s;
+  overflow:hidden;
+  border:none;
+  cursor:pointer;
+  word-break:break-all;
+  text-align:center;
+  max-width:100%;
+}
+.mail svg{width:15px;height:15px;flex:none}
+.mail:hover{
+  transform:translateY(-3px) scale(1.02);
+  background-position:100% 0;
+  box-shadow:0 20px 56px -12px rgba(139,92,246,.8);
+}
+.mail:active{transform:translateY(-1px) scale(.99)}
+
+.copy-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:12px 18px;border-radius:999px;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.12);
+  color:#b8c2de;font-size:11px;font-weight:600;
+  font-family:inherit;cursor:pointer;
+  transition:.3s;
+  letter-spacing:.02em;
+}
+.copy-btn:hover{background:rgba(255,255,255,.09);color:#fff;border-color:rgba(34,211,238,.4)}
+.copy-btn.done{color:#22d3ee;border-color:rgba(34,211,238,.5)}
+
+/* ============ FOOTER ============ */
+.foot{
+  margin-top:28px;padding-top:18px;
+  border-top:1px solid rgba(255,255,255,.06);
+  font-size:10px;letter-spacing:.1em;
+  color:#5c6785;text-transform:uppercase;font-weight:500;
+}
+.foot span{color:#8b95b5}
+
+/* ============ KEYFRAMES ============ */
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(38px) scale(.965);filter:blur(10px)}
+  to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
+@keyframes shine{to{background-position:260% 0}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.65)}}
+@keyframes float{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(6%,-9%) scale(1.13)}
+  66%{transform:translate(-7%,7%) scale(.93)}
+}
+@keyframes sweep{0%{left:-70%}55%,100%{left:135%}}
+@keyframes tick{
+  0%{transform:translateY(-7px) scale(1.14);opacity:.35}
+  60%{transform:translateY(1px) scale(.99);opacity:1}
+  100%{transform:translateY(0) scale(1);opacity:1}
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:700px){
+  .links{grid-template-columns:1fr;gap:8px}
+  .link{flex-direction:row;align-items:center;justify-content:space-between;padding:12px 14px}
+  .countdown{gap:6px;margin:24px 0 22px}
+  .unit{border-radius:14px}
+  .card{border-radius:22px}
+  .cursor-glow{display:none}
+  .title{font-size:clamp(26px, 8vw, 42px);}
+  .mail{font-size:11px;padding:11px 16px;}
+}
+@media (max-width:380px){
+  .countdown{grid-template-columns:repeat(2,1fr);gap:8px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  #bg{display:none}
+  .cursor-glow{display:none}
+}
+</style>
 </head>
 <body>
-    <!-- Navigation Header -->
-    <header class="navbar">
-        <div class="container nav-container">
-            <div class="logo">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                    <rect width="40" height="40" rx="8" fill="#0088cc"/>
-                    <path d="M10 20L20 30L30 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span>IT World Jersey</span>
-            </div>
-            <nav class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#download">Download</a>
-                <a href="#stats">Statistics</a>
-                <a href="#contact">Contact</a>
-            </nav>
-        </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Connect with Anyone, Anywhere</h1>
-                <p>The fastest and most reliable messaging platform for seamless communication across all devices</p>
-                <div class="hero-buttons">
-                    <button class="btn btn-primary" onclick="scrollTo('download')">Get Started</button>
-                    <button class="btn btn-secondary" onclick="scrollTo('features')">Learn More</button>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="phone-mockup">
-                    <div class="phone-screen">
-                        <div class="chat-bubble incoming">Hey! How are you?</div>
-                        <div class="chat-bubble outgoing">I'm great! How about you?</div>
-                        <div class="chat-bubble incoming">Doing amazing! Let's catch up!</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- BACKGROUND -->
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="aurora" aria-hidden="true">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+</div>
+<div class="grid" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="cursor-glow" aria-hidden="true"></div>
 
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <h2>Why Choose IT World Jersey?</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">💬</div>
-                    <h3>Instant Messaging</h3>
-                    <p>Send messages instantly with end-to-end encryption. Your privacy is our priority.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📞</div>
-                    <h3>Voice & Video Calls</h3>
-                    <p>Crystal clear voice and video calls with crystal quality. Connect face-to-face anytime.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📁</div>
-                    <h3>File Sharing</h3>
-                    <p>Share files up to 2GB instantly. Documents, photos, and videos in seconds.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔐</div>
-                    <h3>Secure & Private</h3>
-                    <p>Military-grade encryption ensures your conversations stay completely private.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">👥</div>
-                    <h3>Group Chats</h3>
-                    <p>Create groups with up to 500,000 members. Perfect for communities and teams.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Lightning Fast</h3>
-                    <p>Optimized for speed and performance. Experience messaging like never before.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- CONTENT -->
+<main class="card" id="card">
 
-    <!-- Statistics Section -->
-    <section id="stats" class="statistics">
-        <div class="container">
-            <h2>Our Growth</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number" data-count="50000000">0</div>
-                    <div class="stat-label">Active Users</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" data-count="200000000">0</div>
-                    <div class="stat-label">Daily Messages</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" data-count="180">0</div>
-                    <div class="stat-label">Countries</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" data-count="99.99">0</div>
-                    <div class="stat-label">Uptime %</div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <div class="badge">
+    <span class="dot"></span>
+    <span>System Upgrade &nbsp;•&nbsp; Coming Soon</span>
+  </div>
 
-    <!-- Download Section -->
-    <section id="download" class="download">
-        <div class="container">
-            <h2>Download IT World Jersey</h2>
-            <p class="download-subtitle">Available on all platforms for seamless communication</p>
-            
-            <div class="download-category">
-                <h3>📱 Mobile Apps</h3>
-                <div class="download-grid">
-                    <div class="download-card">
-                        <div class="app-icon android">🤖</div>
-                        <h4>Android</h4>
-                        <p>Android 5.0+</p>
-                        <a href="https://play.google.com" class="download-btn">
-                            <span>Download</span>
-                        </a>
-                    </div>
-                    <div class="download-card">
-                        <div class="app-icon ios">🍎</div>
-                        <h4>iPhone & iPad</h4>
-                        <p>iOS 12.0+</p>
-                        <a href="https://apps.apple.com" class="download-btn">
-                            <span>Download</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+  <h1 class="title">Coming&nbsp;Soon!</h1>
 
-            <div class="download-category">
-                <h3>💻 Desktop Apps</h3>
-                <div class="download-grid">
-                    <div class="download-card">
-                        <div class="app-icon windows">🪟</div>
-                        <h4>Windows PC</h4>
-                        <p>Windows 7+</p>
-                        <a href="#" class="download-btn">
-                            <span>Download</span>
-                        </a>
-                    </div>
-                    <div class="download-card">
-                        <div class="app-icon mac">🍎</div>
-                        <h4>Mac</h4>
-                        <p>macOS 10.12+</p>
-                        <a href="#" class="download-btn">
-                            <span>Download</span>
-                        </a>
-                    </div>
-                    <div class="download-card">
-                        <div class="app-icon linux">🐧</div>
-                        <h4>Linux</h4>
-                        <p>Ubuntu 16.04+</p>
-                        <a href="#" class="download-btn">
-                            <span>Download</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+  <p class="lead">
+    ကျွန်ုပ်တို့၏ ဝဘ်ဆိုက်ကို <strong>Mobile Application</strong> နှင့် ချိတ်ဆက်နေသဖြင့်
+    ခေတ္တရပ်နားထားပါသည်။ <strong>၂၀၂၆ ခုနှစ် အောက်တိုဘာလ ၁၅ ရက်နေ့</strong> တွင်
+    ပြန်လည်ဖွင့်လှစ်မည် ဖြစ်ပါသည်။
+  </p>
 
-            <div class="web-access">
-                <h3>🌐 Web Access</h3>
-                <p>Access your account anytime at <strong>web.itworldjersey.store</strong></p>
-                <a href="https://web.itworldjersey.store" class="web-link-btn">Visit Web Version</a>
-            </div>
-        </div>
-    </section>
+  <!-- COUNTDOWN -->
+  <div class="countdown" id="countdown" role="timer" aria-live="polite">
+    <div class="unit">
+      <span class="num" id="cd-days">00</span>
+      <span class="lbl">Days</span>
+    </div>
+    <div class="unit">
+      <span class="num" id="cd-hours">00</span>
+      <span class="lbl">Hours</span>
+    </div>
+    <div class="unit">
+      <span class="num" id="cd-mins">00</span>
+      <span class="lbl">Minutes</span>
+    </div>
+    <div class="unit">
+      <span class="num" id="cd-secs">00</span>
+      <span class="lbl">Seconds</span>
+    </div>
+  </div>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>Get in Touch</h2>
-            <p>Have questions? We'd love to hear from you</p>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="info-item">
-                        <span class="info-icon">📧</span>
-                        <div>
-                            <h4>Email</h4>
-                            <p>support@itworldjersey.store</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-icon">📱</span>
-                        <div>
-                            <h4>Chat Support</h4>
-                            <p>Available 24/7 in the app</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-icon">🌐</span>
-                        <div>
-                            <h4>Website</h4>
-                            <p>itworldjersey.store</p>
-                        </div>
-                    </div>
-                </div>
-                <form class="contact-form" onsubmit="handleSubmit(event)">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                    <textarea placeholder="Your Message" rows="5" required></textarea>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
+  <!-- SUBDOMAIN LINKS -->
+  <nav class="links" aria-label="Site links">
+    <a class="link" href="https://web.itworldjersey.store" target="_blank" rel="noopener">
+      <span class="host">web.itworldjersey.store</span>
+      <span class="status demo"><i></i>Demo</span>
+    </a>
+    <a class="link soon" href="#" aria-disabled="true" tabindex="-1">
+      <span class="host">app.itworldjersey.store</span>
+      <span class="status soon"><i></i>Soon</span>
+    </a>
+    <a class="link soon" href="#" aria-disabled="true" tabindex="-1">
+      <span class="host">live.itworldjersey.store</span>
+      <span class="status soon"><i></i>Soon</span>
+    </a>
+  </nav>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>IT World Jersey</h4>
-                    <p>Connecting people worldwide with secure, fast, and reliable messaging.</p>
-                </div>
-                <div class="footer-section">
-                    <h5>Product</h5>
-                    <ul>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#download">Download</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Security</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h5>Company</h5>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Press</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h5>Legal</h5>
-                    <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 IT World Jersey. All rights reserved.</p>
-                <div class="social-links">
-                    <a href="#">Twitter</a>
-                    <a href="#">Facebook</a>
-                    <a href="#">Instagram</a>
-                    <a href="#">LinkedIn</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+  <!-- CONTACT -->
+  <div class="cta-row">
+    <a class="mail" href="mailto:developer@itworldjersey.store?subject=IT%20World%20Jersey%20Inquiry">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="4" width="20" height="16" rx="3"/>
+        <path d="m2.5 6.5 9.5 6.5 9.5-6.5"/>
+      </svg>
+      developer@itworldjersey.store
+    </a>
+    <button class="copy-btn" id="copyBtn" type="button">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="9" width="12" height="12" rx="2.5"/>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+      </svg>
+      <span>Copy</span>
+    </button>
+  </div>
 
-    <script src="script.js"></script>
+  <div class="foot">© 2026 <span>IT World Jersey</span> — All Rights Reserved</div>
+</main>
+
+<script>
+/* =====================================================
+   1) COUNTDOWN  →  15 October 2026, 00:00 (MMT +06:30)
+   ===================================================== */
+(function () {
+  // ရက်စွဲကို October 15, 2026 သို့ ပြောင်းလဲထားပါသည်
+  const TARGET = new Date('2026-10-15T00:00:00+06:30').getTime();
+
+  const els = {
+    d: document.getElementById('cd-days'),
+    h: document.getElementById('cd-hours'),
+    m: document.getElementById('cd-mins'),
+    s: document.getElementById('cd-secs')
+  };
+  const cache = { d: '', h: '', m: '', s: '' };
+
+  function setVal(el, key, value) {
+    const str = String(value).padStart(2, '0');
+    if (cache[key] === str) return;
+    cache[key] = str;
+    el.textContent = str;
+    el.classList.remove('tick');
+    void el.offsetWidth;          // force reflow → restart animation
+    el.classList.add('tick');
+  }
+
+  function tick() {
+    let diff = TARGET - Date.now();
+    if (diff <= 0) {
+      diff = 0;
+      setVal(els.d, 'd', 0);
+      setVal(els.h, 'h', 0);
+      setVal(els.m, 'm', 0);
+      setVal(els.s, 's', 0);
+      clearInterval(timer);
+      return;
+    }
+    setVal(els.d, 'd', Math.floor(diff / 86400000));
+    setVal(els.h, 'h', Math.floor(diff / 3600000) % 24);
+    setVal(els.m, 'm', Math.floor(diff / 60000) % 60);
+    setVal(els.s, 's', Math.floor(diff / 1000) % 60);
+  }
+
+  tick();
+  const timer = setInterval(tick, 1000);
+})();
+
+
+/* =====================================================
+   2) PARTICLE NETWORK CANVAS
+   ===================================================== */
+(function () {
+  const canvas = document.getElementById('bg');
+  const ctx = canvas.getContext('2d');
+  const COLORS = ['34,211,238', '139,92,246', '244,114,182', '96,165,250'];
+
+  let W = 0, H = 0, DPR = 1, parts = [];
+  const pointer = { x: -99999, y: -99999 };
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function build() {
+    const count = Math.min(95, Math.max(30, Math.floor((innerWidth * innerHeight) / 17000)));
+    parts = [];
+    for (let i = 0; i < count; i++) {
+      parts.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.30 * DPR,
+        vy: (Math.random() - 0.5) * 0.30 * DPR,
+        r: (Math.random() * 1.5 + 0.7) * DPR,
+        c: COLORS[(Math.random() * COLORS.length) | 0]
+      });
+    }
+  }
+
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = canvas.width = Math.floor(innerWidth * DPR);
+    H = canvas.height = Math.floor(innerHeight * DPR);
+    canvas.style.width = innerWidth + 'px';
+    canvas.style.height = innerHeight + 'px';
+    build();
+  }
+
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+
+    const LINK = 132 * DPR;
+    const LINK2 = LINK * LINK;
+    const REPEL = 150 * DPR;
+    const REPEL2 = REPEL * REPEL;
+
+    // move
+    for (let i = 0; i < parts.length; i++) {
+      const p = parts[i];
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < -20) { p.x = -20; p.vx *= -1; }
+      else if (p.x > W + 20) { p.x = W + 20; p.vx *= -1; }
+      if (p.y < -20) { p.y = -20; p.vy *= -1; }
+      else if (p.y > H + 20) { p.y = H + 20; p.vy *= -1; }
+
+      // pointer repulsion
+      const dx = p.x - pointer.x, dy = p.y - pointer.y;
+      const d2 = dx * dx + dy * dy;
+      if (d2 < REPEL2 && d2 > 0.5) {
+        const dist = Math.sqrt(d2);
+        const f = (1 - dist / REPEL) * 2.6;
+        p.x += (dx / dist) * f;
+        p.y += (dy / dist) * f;
+      }
+    }
+
+    // links
+    for (let i = 0; i < parts.length; i++) {
+      const a = parts[i];
+      for (let j = i + 1; j < parts.length; j++) {
+        const b = parts[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d2 = dx * dx + dy * dy;
+        if (d2 < LINK2) {
+          const o = 1 - Math.sqrt(d2) / LINK;
+          ctx.strokeStyle = 'rgba(120,190,255,' + (o * 0.17).toFixed(3) + ')';
+          ctx.lineWidth = DPR * 0.65;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // dots
+    for (let i = 0; i < parts.length; i++) {
+      const p = parts[i];
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, 6.2832);
+      ctx.fillStyle = 'rgba(' + p.c + ',0.85)';
+      ctx.fill();
+    }
+
+    requestAnimationFrame(loop);
+  }
+
+  let rzTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(rzTimer);
+    rzTimer = setTimeout(resize, 160);
+  });
+
+  window.addEventListener('pointermove', function (e) {
+    pointer.x = e.clientX * DPR;
+    pointer.y = e.clientY * DPR;
+  }, { passive: true });
+
+  window.addEventListener('pointerleave', function () {
+    pointer.x = pointer.y = -99999;
+  });
+
+  resize();
+  if (!reduceMotion) loop(); else { ctx.clearRect(0,0,W,H); }
+})();
+
+
+/* =====================================================
+   3) CURSOR GLOW + 3D CARD TILT (desktop only)
+   ===================================================== */
+(function () {
+  const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!fine || reduce) return;
+
+  const glow = document.querySelector('.cursor-glow');
+  const card = document.getElementById('card');
+
+  card.addEventListener('animationend', function () {
+    card.style.animation = 'none';
+  }, { once: true });
+
+  card.style.transition = 'transform .35s cubic-bezier(.2,.85,.3,1)';
+
+  let raf = null;
+  let tx = 0, ty = 0, rx = 0, ry = 0;
+
+  window.addEventListener('pointermove', function (e) {
+    glow.style.opacity = '1';
+    glow.style.transform = 'translate(' + e.clientX + 'px,' + e.clientY + 'px) translate(-50%,-50%)';
+
+    tx = (e.clientX / innerWidth - 0.5) * 9;
+    ty = (e.clientY / innerHeight - 0.5) * -6;
+
+    if (!raf) raf = requestAnimationFrame(applyTilt);
+  }, { passive: true });
+
+  function applyTilt() {
+    rx += (ty - rx) * 0.12;
+    ry += (tx - ry) * 0.12;
+    card.style.transform =
+      'perspective(1300px) rotateX(' + rx.toFixed(3) + 'deg) rotateY(' + ry.toFixed(3) + 'deg)';
+
+    if (Math.abs(tx - ry) > 0.02 || Math.abs(ty - rx) > 0.02) {
+      raf = requestAnimationFrame(applyTilt);
+    } else {
+      raf = null;
+    }
+  }
+})();
+
+
+/* =====================================================
+   4) COPY EMAIL
+   ===================================================== */
+(function () {
+  const btn = document.getElementById('copyBtn');
+  const EMAIL = 'developer@itworldjersey.store';
+  const label = btn.querySelector('span');
+
+  btn.addEventListener('click', async function () {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(EMAIL);
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = EMAIL;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      btn.classList.add('done');
+      label.textContent = 'Copied!';
+      setTimeout(function () {
+        btn.classList.remove('done');
+        label.textContent = 'Copy';
+      }, 2000);
+    } catch (err) {
+      label.textContent = EMAIL;
+    }
+  });
+})();
+</script>
 </body>
-</html>
+    </html>
