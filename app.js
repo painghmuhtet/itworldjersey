@@ -1,6 +1,6 @@
 (function(){
 "use strict";
-const SITE="https://itworldjersey.store";
+const SITE="https://itworldjersey.shop";
 const R2="https://iwji.itworldjersey.shop/";
 const WA="601126238907";
 const EMAIL="inquiry@itworldjersey.store";
